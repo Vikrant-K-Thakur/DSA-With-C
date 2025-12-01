@@ -1,62 +1,85 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int adj[10][10], visited[10], stack[10];
-int top = -1, n;
-
-/*
-    Initial BST:
-          1
-         / \
-        3   2
-         \  /
-          4
-
-stack = 
-visited = 1 1 1 1
-print = 1 3 4 2
-
-*/
-
-
-void dfs(int start)
+struct stack
 {
-    stack[++top] = start; // push start node
-    visited[start] = 1;   // mark start visited
+    int top;
+    int *arr;
+    int size;
+};
 
-    while (top != -1)
-    { // while stack not empty
+void push(struct stack *s, int value)
+{
+    if (s->top == s->size - 1)
+    {
+        return;
+    }
+    s->top++;
+    s->arr[s->top] = value;
+}
 
-        int node = stack[top--]; // pop element from stack
-        printf("%d ", node);     // print the node
+int pop(struct stack *s)
+{
+    if (s->top == -1)
+    {
+        return -1;
+    }
+    int value = s->arr[s->top];
+    s->top--;
+    return value;
+}
 
-        // check all neighbors (in reverse order to match logic)
-        for (int i = n; i >= 1; i--)
+void dfs(int start, int adj[5][5])
+{
+    int visited[5] = {0};
+
+    struct stack s;
+    s.size = 10;
+    s.arr = (int *)malloc(sizeof(int) * s.size);
+    if (s.arr == NULL)
+    {
+        fprintf(stderr, "malloc failed\n");
+        return;
+    }
+    s.top = -1;
+
+    // push start
+    push(&s, start);
+    visited[start] = 1;
+
+    printf("DFS traversal (starting at %d): ", start);
+
+    while (s.top != -1)
+    {
+        int u = pop(&s);
+        if (u == -1)
+            break;
+
+        printf("%d ", u);
+
+        for (int v = 5 - 1; v >= 0; v--)
         {
-            if (adj[node][i] == 1 && visited[i] == 0)
+            if (adj[u][v] == 1 && !visited[v])
             {
-                stack[++top] = i; // push neighbor
-                visited[i] = 1;   // mark visited
+                push(&s, v);
+                visited[v] = 1;
             }
         }
     }
+
+    printf("\n");
 }
 
-int main()
+int main(void)
 {
+    int adj[5][5] = {
+        {0, 1, 1, 0, 0},
+        {1, 0, 0, 1, 0},
+        {1, 0, 0, 0, 1},
+        {0, 1, 0, 0, 0},
+        {0, 0, 1, 0, 0}};
 
-    printf("Enter number of nodes: ");
-    scanf("%d", &n);
-
-    printf("Enter adjacency matrix:\n");
-    for (int i = 1; i <= n; i++)
-        for (int j = 1; j <= n; j++)
-            scanf("%d", &adj[i][j]);
-
-    int start;
-    printf("Enter starting node: ");
-    scanf("%d", &start);
-
-    dfs(start);
+    dfs(0, adj);
 
     return 0;
 }
