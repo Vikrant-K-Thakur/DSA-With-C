@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "stdlib.h": "c",
+        "03_fibonacciSearch.C": "cpp"
+    }
+}
