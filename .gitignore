@@ -1,0 +1,46 @@
+# -----------------------------------------
+#  Ignore build / compiled output
+# -----------------------------------------
+*.exe
+*.out
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.gch
+
+# -----------------------------------------
+#  Ignore temporary / debug / logs
+# -----------------------------------------
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+*.cache
+
+# -----------------------------------------
+#  Ignore OS-generated files
+# -----------------------------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------------------------
+#  Ignore editor folders (VSCode)
+# -----------------------------------------
+.vscode/
+
+# -----------------------------------------
+#  Ignored some specific files
+# -----------------------------------------
+C.c        # only this C file will be ignored
+a.txt      # ignore your test txt file
+c.exe      # ignore this specific exe
+
+# -----------------------------------------
+#  build folders
+# -----------------------------------------
+/build/
+/bin/
+/dist/
