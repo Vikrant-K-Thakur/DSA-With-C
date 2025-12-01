@@ -34,8 +34,6 @@ Thumbs.db
 # -----------------------------------------
 #  Ignored some specific files
 # -----------------------------------------
-C.c        # only this C file will be ignored
-a.txt      # ignore your test txt file
 c.exe      # ignore this specific exe
 
 # -----------------------------------------
